@@ -1,0 +1,486 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DreamBuilder - Crypto Lottery with Verified Draws</title>
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self' https: 'unsafe-inline' 'unsafe-eval';">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Arial', sans-serif;
+        }
+
+        body {
+            background: linear-gradient(135deg, #6a11cb, #2575fc);
+            color: #ffffff;
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        .disclaimer {
+            background: #2d3748;
+            border: 2px solid #3b82f6;
+            color: #ffffff;
+            padding: 1rem;
+            text-align: center;
+            font-size: 1rem;
+            font-weight: bold;
+        }
+
+        .hero-section {
+            background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)),
+                        url('https://images.pexels.com/photos/730564/pexels-photo-730564.jpeg') center/cover;
+            padding: 8rem 2rem;
+            text-align: center;
+        }
+
+        .trusted-by {
+            display: flex;
+            justify-content: center;
+            gap: 4rem;
+            padding: 3rem;
+            background: rgba(0, 0, 0, 0.4);
+            flex-wrap: wrap;
+        }
+
+        .trusted-by img {
+            height: 50px;
+            filter: grayscale(1) brightness(2);
+            transition: all 0.3s ease;
+        }
+
+        .section {
+            margin: 3rem auto;
+            padding: 2rem;
+            background: rgba(0, 0, 0, 0.6);
+            border-radius: 15px;
+            max-width: 800px;
+            text-align: center;
+        }
+
+        .input-field {
+            width: 100%;
+            padding: 1rem;
+            margin: 1rem 0;
+            background: #2d3748;
+            border: 2px solid #3b82f6;
+            color: white;
+            border-radius: 8px;
+        }
+
+        .btn {
+            padding: 0.8rem 2rem;
+            background: #3b82f6;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .btn:hover {
+            background: #2563eb;
+        }
+
+        .announcement {
+            background: rgba(255, 255, 255, 0.2);
+            padding: 3rem;
+            text-align: center;
+            margin-top: 2rem;
+        }
+
+        .timer {
+            font-size: 2rem;
+            font-weight: bold;
+            margin: 1rem 0;
+            color: #ffeb3b;
+        }
+
+        .winner-list {
+            margin: 2rem auto;
+            text-align: center;
+            max-width: 800px;
+        }
+
+        .risk-disclosure {
+            background: rgba(255, 0, 0, 0.1);
+            border: 2px solid #ff4444;
+        }
+
+        .winner-card {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 1rem;
+            border-radius: 10px;
+            margin: 1rem 0;
+        }
+
+        .proof-link {
+            color: #10b981;
+            text-decoration: none;
+            font-size: 0.9rem;
+        }
+
+        .payment-protocol {
+            margin: 1rem 0;
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+        }
+
+        .security-badge {
+            padding: 0.5rem 1rem;
+            background: rgba(0, 255, 0, 0.1);
+            border-radius: 5px;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .qr-code {
+            margin: 2rem auto;
+            padding: 1rem;
+            background: white;
+            border-radius: 10px;
+            max-width: 200px;
+        }
+
+        .qr-code img {
+            width: 100%;
+            height: auto;
+        }
+
+        .cause-section {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 2rem;
+            margin: 2rem auto;
+            text-align: center;
+            border-radius: 15px;
+            max-width: 800px;
+        }
+
+        .ticket-display {
+            background: linear-gradient(45deg, #3b82f6, #8b5cf6);
+            padding: 1.5rem;
+            border-radius: 10px;
+            margin: 2rem auto;
+            max-width: 300px;
+            text-align: center;
+            animation: ticketGlow 2s infinite alternate;
+        }
+
+        @keyframes ticketGlow {
+            from { box-shadow: 0 0 10px rgba(59, 130, 246, 0.5); }
+            to { box-shadow: 0 0 20px rgba(59, 130, 246, 0.8); }
+        }
+
+        .ticket-number {
+            font-size: 1.8rem;
+            font-weight: bold;
+            letter-spacing: 3px;
+            color: #ffeb3b;
+        }
+
+        #simulateDraw {
+            background: #10b981;
+            margin-top: 1rem;
+        }
+    </style>
+</head>
+<body>
+    <div class="disclaimer">
+        This is the only original crypto lottery website. Keep your money safe from frauds.
+    </div>
+
+    <div class="hero-section">
+        <h1>World's First Genuine Crypto Lottery System Initiative</h1>
+        <h1 style="font-size: 3.5rem; margin-bottom: 2rem;">Build Dreams, Win Futures</h1>
+        <p style="font-size: 1.4rem; max-width: 800px; margin: 0 auto;">
+            Every 6.99 USDT deposit helps fund education initiatives while giving you a chance to win 9,999 USDT every 24 hours.
+            Refer friends and increase your chances of winning with free tickets!
+        </p>
+    </div>
+
+    <div class="trusted-by">
+        <img src="https://bin.bnbstatic.com/static/images/common/logo-bsc.svg" alt="Binance Smart Chain">
+        <img src="https://www.logo.wine/a/logo/Coinbase/Coinbase-Logo.wine.svg" alt="Coinbase" style="height: 40px;">
+        <img src="https://seeklogo.com/images/T/tron-trx-logo-51AF39F0D8-seeklogo.com.png" alt="Tron" style="height: 45px;">
+    </div>
+
+    <div class="section" id="verification">
+        <h3>Blockchain Verification</h3>
+        <p>Verify all transactions on TRON network:</p>
+        <div class="verification-links">
+            <a href="https://tronscan.org/" target="_blank" rel="noopener noreferrer" class="btn">TRONSCAN Explorer</a>
+            <a href="https://www.trongrid.io/" target="_blank" rel="noopener noreferrer" class="btn">TRON Grid API</a>
+        </div>
+    </div>
+
+    <div class="container">
+        <div class="section">
+            <h3>Payment Information</h3>
+            <div class="payment-protocol">
+                <span class="security-badge">🔒 SSL Encrypted</span>
+                <span class="security-badge">🛡️ TRON TRC-20 Verified</span>
+            </div>
+            <p>To participate, send exactly 6.99 USDT (TRC20) to:</p>
+            <p><strong>USDT TRC20 Address:</strong></p>
+            <p><strong>TU4fx5hBBYaDuAhQEgmzGDjW9MpDDqauU8</strong></p>
+
+            <div class="qr-code">
+                <img src="payment-qr.png" alt="USDT TRC20 QR Code">
+                <p>Scan to verify address</p>
+            </div>
+
+            <p><strong>Important:</strong> Only TRC20 network accepted</p>
+            <p style="margin-top: 1rem; font-size: 1rem; color: #ffeb3b;">
+                If you don't win in 8 weeks, half of your deposit will be returned.
+            </p>
+        </div>
+
+        <div class="section risk-disclosure">
+            <h3>⚠️ Important Notice</h3>
+            <ul>
+                <li>Minimum age requirement: 18 years</li>
+                <li>USDT value may fluctuate</li>
+            </ul>
+        </div>
+
+        <div class="section">
+            <h3>Confirm Your Participation</h3>
+            <p>Enter your USDT TRC20 address and transaction details.</p>
+
+            <input type="text" id="usdtAddress" class="input-field" placeholder="Your USDT TRC20 address">
+            <input type="text" id="referralCode" class="input-field" placeholder="Referral code (optional)">
+            <input type="text" id="txidInput" class="input-field" placeholder="Transaction ID">
+
+            <button onclick="confirmTransaction()" class="btn">Confirm Deposit</button>
+
+            <div id="ticketDisplay" class="ticket-display" style="display: none;">
+                <p>Your Lucky Ticket Number:</p>
+                <p class="ticket-number" id="ticketNumber"></p>
+                <small>Keep this number safe for draw verification</small>
+            </div>
+
+            <p id="confirmationMessage" style="color: #10b981; margin-top: 1rem;"></p>
+            <p id="errorMessage" style="color: #ff4444; margin-top: 1rem;"></p>
+            <p id="ticketMessage" style="color: #ffeb3b; margin-top: 1rem;"></p>
+        </div>
+
+        <div class="referral-note">
+            <p><strong>Referral Code:</strong> Generated after payment. Refer 2 friends for free ticket.</p>
+        </div>
+    </div>
+
+    <div class="cause-section">
+        <h3>Where Your Money Creates Impact</h3>
+        <p>Funds are allocated to support:</p>
+        <ul>
+            <li>📚 Education for underprivileged civilizations</li>
+            <li>🍲 Food security programs worldwide</li>
+            <li>🏥 Medical aid in developing regions</li>
+            <li>👕 Basic necessities for marginalized communities</li>
+        </ul>
+        <div class="charity-logos">
+            <img src="unicef-logo.svg" alt="UNICEF" class="charity-logo">
+            <img src="redcross-logo.png" alt="Red Cross" class="charity-logo">
+        </div>
+        <p>Monthly verified allocations:
+            <a href="/transparency-reports" class="audit-link">View Impact Reports</a>
+        </p>
+    </div>
+
+    <div class="credibility-corner">
+        <h3>What Crypto Leaders Say About Us</h3>
+        <p>Experts praise our innovative approach to helping others while ensuring funds are used for real causes.</p>
+    </div>
+
+    <div class="announcement">
+        <h2>🎉 Next Winner Announcement in:</h2>
+        <div class="timer" id="countdownTimer">00h 00m 00s</div>
+    </div>
+
+    <div class="winner-list">
+        <h3>🏆 Verified Winners</h3>
+        <div id="winnersSection">
+            <!-- Winners will be populated here -->
+        </div>
+    </div>
+
+    <div class="section">
+        <button onclick="simulateDraw()" class="btn" id="simulateDraw">
+            🎉 Simulate Next Draw (Admin)
+        </button>
+    </div>
+
+    <script>
+        // Ticket System Core Logic
+        let tickets = JSON.parse(localStorage.getItem('lotteryTickets')) || [];
+        let currentWinner = JSON.parse(localStorage.getItem('currentWinner')) || null;
+
+        function generateTicketNumber() {
+            const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
+            let ticket = '';
+            for (let i = 0; i < 6; i++) {
+                ticket += chars.charAt(Math.floor(Math.random() * chars.length));
+            }
+            return `#${ticket}`;
+        }
+
+        function validateTRC20Address(address) {
+            return /^T[a-zA-Z0-9]{33}$/.test(address);
+        }
+
+        function validateTXID(txid) {
+            return /^[a-fA-F0-9]{64}$/.test(txid);
+        }
+
+        function confirmTransaction() {
+            const address = document.getElementById('usdtAddress').value;
+            const txid = document.getElementById('txidInput').value;
+            const referral = document.getElementById('referralCode').value;
+
+            // Clear messages
+            document.getElementById('errorMessage').textContent = '';
+            document.getElementById('confirmationMessage').textContent = '';
+            document.getElementById('ticketMessage').textContent = '';
+            document.getElementById('ticketDisplay').style.display = 'none';
+
+            // Validation
+            if (!validateTRC20Address(address)) {
+                document.getElementById('errorMessage').textContent = 'Invalid TRC20 address format!';
+                return;
+            }
+
+            if (!validateTXID(txid)) {
+                document.getElementById('errorMessage').textContent = 'Invalid Transaction ID format!';
+                return;
+            }
+
+            // Check duplicate TXID
+            if (tickets.some(t => t.txid === txid)) {
+                document.getElementById('errorMessage').textContent = 'This transaction already has a ticket!';
+                return;
+            }
+
+            // Generate ticket
+            const ticketNumber = generateTicketNumber();
+            const newTicket = {
+                txid: txid,
+                ticket: ticketNumber,
+                timestamp: new Date().toISOString(),
+                address: address
+            };
+
+            tickets.push(newTicket);
+            localStorage.setItem('lotteryTickets', JSON.stringify(tickets));
+
+            // Display results
+            document.getElementById('confirmationMessage').textContent = '✅ Transaction verified!';
+            document.getElementById('ticketNumber').textContent = ticketNumber;
+            document.getElementById('ticketDisplay').style.display = 'block';
+
+            if (referral) {
+                document.getElementById('ticketMessage').textContent =
+                    '🎟️ Referral code accepted! +1 bonus ticket added.';
+                // Generate bonus ticket
+                const bonusTicket = generateTicketNumber();
+                tickets.push({
+                    txid: txid + '-BONUS',
+                    ticket: bonusTicket,
+                    timestamp: new Date().toISOString(),
+                    address: address
+                });
+                localStorage.setItem('lotteryTickets', JSON.stringify(tickets));
+            }
+        }
+
+        function simulateDraw() {
+            if (tickets.length === 0) {
+                alert('No tickets available for draw!');
+                return;
+            }
+
+            // Random selection
+            const winnerIndex = Math.floor(Math.random() * tickets.length);
+            const winner = tickets[winnerIndex];
+
+            // Store winner
+            currentWinner = {
+                ...winner,
+                drawTime: new Date().toISOString(),
+                prize: '9999 USDT'
+            };
+
+            localStorage.setItem('currentWinner', JSON.stringify(currentWinner));
+            updateWinnerDisplay();
+            alert(`Winner selected: ${winner.ticket}`);
+        }
+
+        function updateWinnerDisplay() {
+            const winnerDisplay = document.getElementById('winnersSection');
+            if (currentWinner) {
+                winnerDisplay.innerHTML = `
+                    <div class="winner-card">
+                        <div class="winner-proof">
+                            <span class="winner-address">${currentWinner.address.slice(0,6)}***${currentWinner.address.slice(-4)}</span>
+                            <a href="https://tronscan.org/#/transaction/${currentWinner.txid}"
+                               class="proof-link"
+                               target="_blank"
+                               rel="noopener noreferrer">View Blockchain Proof</a>
+                        </div>
+                        <div class="winner-details">
+                            <p>Won: ${currentWinner.prize}</p>
+                            <p>Ticket: <span>${currentWinner.ticket}</span></p>
+                            <p>Draw Time: ${new Date(currentWinner.drawTime).toLocaleString()}</p>
+                        </div>
+                    </div>
+                `;
+            }
+        }
+
+        // Countdown Timer
+        function updateTimer() {
+            const now = new Date().getTime();
+            const nextDraw = new Date();
+            nextDraw.setHours(nextDraw.getHours() + 24);
+            nextDraw.setMinutes(0, 0, 0);
+
+            const distance = nextDraw - now;
+
+            const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+            const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+            document.getElementById('countdownTimer').innerHTML =
+                `${hours.toString().padStart(2, '0')}h
+                 ${minutes.toString().padStart(2, '0')}m
+                 ${seconds.toString().padStart(2, '0')}s`;
+
+            if (distance < 0) {
+                clearInterval(timerInterval);
+                document.getElementById('countdownTimer').innerHTML = "DRAW IN PROGRESS";
+            }
+        }
+
+        // Initialize
+        let timerInterval = setInterval(updateTimer, 1000);
+        updateTimer();
+        updateWinnerDisplay();
+    </script>
+</body>
+</html><!DOCTYPE HTML>
+
+<html>
+
+<head>
+  <title>Untitled</title>
+</head>
+
+<body>
+
+</body>
+
+</html>
